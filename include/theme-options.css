@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700');
+
+
+
+#wpcontent {
+    margin-left: 160px;
+    background: #022638;
+    color: white;
+    font-family: Poppins;
+}
+
+.wp-core-ui .button-primary {
+	background: #f73829;
+	border: 0px !Important;
+	color: white;
+	    box-shadow: 0 1px 0 #f73829;
+	        text-shadow: 0 0 0;
+}
+
+
+.section.panel h1 {
+    color: white;
+}
+
+.form-table th, .form-wrap label {
+    color: #ffffff;
+
+
+}
+
+h1, h2, h3 {
+    color: #ffffff;
+}
+
+#footer-thankyou {
+    font-style: italic;
+    color: white;
+}
