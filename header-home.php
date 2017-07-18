@@ -39,7 +39,7 @@
                 <div class="sub-menu">
 
               	<?php wp_nav_menu( array(
-			'theme_location' => 'hashless',
+			'theme_location' => 'primary',
 			'menu_id'        => 'top-menu',
 			'container'        => 'nav',
 
@@ -56,4 +56,4 @@
         </div>
 
 
-        <div class="container second">
+        <div class="container">

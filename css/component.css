@@ -47,11 +47,26 @@ nav a:focus {
 }
 
 .cl-effect-1 a:hover::before,
-.cl-effect-1 a:hover::after,
-.cl-effect-1 a:focus::before,
-.cl-effect-1 a:focus::after,
-.cl-effect-1 a:active::after,
-.cl-effect-1 a:active::after{
+.cl-effect-1 a:hover::after{
+	opacity: 1;
+	-webkit-transform: translateX(0px);
+	-moz-transform: translateX(0px);
+	transform: translateX(0px);
+}
+
+
+.cl-effect-1 a.active::before,
+.cl-effect-1 a.active::after{
+	opacity: 1;
+	-webkit-transform: translateX(0px);
+	-moz-transform: translateX(0px);
+	transform: translateX(0px);
+}
+
+
+.current-menu-item a::before,
+.current-menu-item a::after {
+
 	opacity: 1;
 	-webkit-transform: translateX(0px);
 	-moz-transform: translateX(0px);

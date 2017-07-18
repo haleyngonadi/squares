@@ -14,7 +14,7 @@
 
 	        <div class="footer">
             <a data-scroll data-options='{ "easing": "easeOutQuart" }' href="#up-top" class="totop"><i class="fa fa-angle-double-up"></i></a>
-            <span class="wow shake">Copyright 2015 - <b>Vital Sqaures. All Rights Reserved</b></span>
+            <span class="wow shake"><?php echo comicpress_copyright(); ?> <b><?php echo get_bloginfo( 'name' ); ?></b> - All rights reserved.</span>
             
         </div>
 
