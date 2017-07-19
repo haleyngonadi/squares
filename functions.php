@@ -343,11 +343,14 @@ function vp_pfui_format_gallery_save_post($post_id) {
 
 function pw_load_scripts($hook) {
 
-  if( $hook != 'edit.php' && $hook != 'post.php' && $hook != 'post-new.php' ) 
-    return;
+  $post_id = $_GET['post'] ? $_GET['post'] : $_POST['post_ID'] ;
+  if( !isset( $post_id ) ) return;
 
+   $homepgname = get_the_title($post_id);
+if($homepgname == 'Portfolio'){ 
   wp_enqueue_script( 'my_custom_script', get_template_directory_uri() . '/js/portfolio.js', array(), '1.0' );
     wp_enqueue_style( 'custom_wp_admin_css', get_template_directory_uri() . '/css/admin.css', false, '1.0.0' );
+  }
 }
 add_action('admin_enqueue_scripts', 'pw_load_scripts');
 
