@@ -10,11 +10,12 @@
 }
 
 .wp-core-ui .button-primary {
-	background: #f73829;
-	border: 0px !Important;
-	color: white;
-	    box-shadow: 0 1px 0 #f73829;
-	        text-shadow: 0 0 0;
+	background: #f73829 !important;
+    border: 0px !Important;
+    color: white;
+    box-shadow: 0 1px 0 #f73829 !important;
+    text-shadow: 0 0 0;
+    padding-top: 3px;
 }
 
 
