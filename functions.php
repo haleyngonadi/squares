@@ -249,10 +249,63 @@ if ( $post->post_title == 'Portfolio')
     add_meta_box('my_all_meta_1', 'Portfolio', 'display_product_information', 'page', 'normal', 'high');
 
 }
+    add_meta_box('service_photos', 'Images', 'display_service_images', 'service', 'normal', 'high');
 
 }
 
+function display_service_images()
+{
 
+global $post;
+
+      $str = $post->post_title; 
+        $str = strtolower($str);
+        $str = str_replace(' ', '_', $str)."_images";
+
+        $page = get_page_by_title( 'Portfolio' );
+      $theID = $page->ID;
+
+        $images = get_post_meta($theID,  $str , true);
+    
+     echo "<span class='vp-active-gallery' data-active=". $str."></span>";
+
+
+?>
+
+    <div id="vp-pfui-format-gallery-preview" class="vp-pfui-elm-block vp-pfui-elm-block-image">
+ 
+  <div class="vp-pfui-elm-container">
+
+
+    <div class="vp-pfui-gallery-picker">
+      <?php
+
+
+
+        echo '<div class="gallery clearfix '.$str.'">';
+        if ($images) {
+          foreach ($images as $image) {
+            $thumbnail = wp_get_attachment_image_src($image, 'thumbnail');
+            echo '<span data-id="' . $image . '" title="' . 'title' . '" data-gallery="' . $str. '"><img src="' . $thumbnail[0] . '" alt="" /><span class="close">x</span></span>';
+          }
+        }
+        echo '</div>';
+      ?>
+      <input type="hidden" name="<?php echo $str;?>" value="<?php echo (empty($images) ? "" : implode(',', $images)); ?>" />
+      <p class="none"><a href="#" class="button vp-pfui-gallery-button" data-name="<?php echo $post->post_title;?>">
+      <?php _e('Pick Images', 'vp-post-formats-ui'); ?></a></p>
+    </div>
+
+
+  </div>
+</div>
+
+
+  <?php 
+
+
+
+}
 
 function display_product_information()
 {
@@ -310,7 +363,8 @@ add_action('save_post', 'vp_pfui_format_gallery_save_post');
 function vp_pfui_format_gallery_save_post($post_id) {
 
 
-
+$page = get_page_by_title( 'Portfolio' );
+      $theID = $page->ID;
     $args = array('post_type' => 'service');
   $the_query = get_posts( $args );
 
@@ -327,7 +381,7 @@ function vp_pfui_format_gallery_save_post($post_id) {
     } else {
       $images = array();
     }
-    update_post_meta($post_id, $str, $images);
+    update_post_meta($theID, $str, $images);
   }
 
 }
@@ -338,16 +392,30 @@ function vp_pfui_format_gallery_save_post($post_id) {
 
 function pw_load_scripts($hook) {
 
-  $post_id = $_GET['post'] ? $_GET['post'] : $_POST['post_ID'] ;
+
+  $post_id = $_GET['post'] ? $_GET['post'] : $_POST['post'] ;
   if( !isset( $post_id ) ) return;
 
-   $homepgname = get_the_title($post_id);
-if($homepgname == 'Portfolio'){ 
+   $homepgname = get_the_title($post_id->ID);
+  if($homepgname == 'Portfolio'){ 
   wp_enqueue_script( 'my_custom_script', get_template_directory_uri() . '/js/portfolio.js', array(), '1.0' );
     wp_enqueue_style( 'custom_wp_admin_css', get_template_directory_uri() . '/css/admin.css', false, '1.0.0' );
   }
+
+
+
 }
 add_action('admin_enqueue_scripts', 'pw_load_scripts');
+add_action('admin_enqueue_scripts', 'service_scripts');
+
+
+function service_scripts(){
+    global $post_type;
+    if( 'service' == $post_type ) {
+   wp_enqueue_script( 'my_custom_script', get_template_directory_uri() . '/js/portfolio.js', array(), '1.0' );
+    wp_enqueue_style( 'custom_wp_admin_css', get_template_directory_uri() . '/css/admin.css', false, '1.0.0' );}
+}
+
 
 
 add_action( 'admin_init', 'hide_editor' );
