@@ -153,12 +153,18 @@ function pu_register_settings()
       'class'     => 'css_class'
     );
 
-      add_settings_field('about_us_box', 'About', 'pu_display_setting', 'pu_theme_options.php','pu_display_section', $about_args);
+      add_settings_field('about_us_box', 'About', 'pu_display_setting', 'pu_theme_options.php','pu_text_section', $about_args);
    
-      add_settings_field('plugin_textarea_string', 'Find Us:', 'pu_display_setting', 'pu_theme_options.php','pu_display_section', $area_args);
+      add_settings_field('plugin_textarea_string', 'Find Us:', 'pu_display_setting', 'pu_theme_options.php','pu_text_section', $area_args);
 
 
 }
+
+function pu_display_section( $arg ) {
+
+}
+
+
 
 function pu_display_setting($args)
 {
