@@ -1,7 +1,4 @@
-#formatdiv, /* hide default radio button UI */
-#titlewrap {
-	display: none;
-}
+
 #post-body-content #postimagediv .inside p {
 	text-align: center;
 }
