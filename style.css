@@ -425,6 +425,7 @@ a {
 
 p a {
      border-bottom: 1px dotted #f73829;
+     color: #f73829;
 }
 
 u {
@@ -438,7 +439,13 @@ b, strong {
     font-weight: 600;
 }
 
+ul.socials {
+    margin: 20px 0;
+}
 
+.second ul.socials {
+    margin:0 0 20px;
+}
 
 
 
