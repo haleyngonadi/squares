@@ -64,8 +64,8 @@ nav a:focus {
 }
 
 
-.current-menu-item a::before,
-.current-menu-item a::after {
+.second .current-menu-item a::before,
+.second .current-menu-item a::after {
 
 	opacity: 1;
 	-webkit-transform: translateX(0px);
