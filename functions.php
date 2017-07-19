@@ -132,17 +132,6 @@ function pu_register_settings()
     add_settings_section( 'pu_text_section', 'Basic Information', 'pu_display_section', 'pu_theme_options.php' );
 
 
-    // Create textbox field
-    $field_args = array(
-      'type'      => 'text',
-      'id'        => 'pu_textbox',
-      'name'      => 'pu_textbox',
-      'desc'      => 'Example of textbox description',
-      'std'       => '',
-      'label_for' => 'pu_textbox',
-      'class'     => 'css_class'
-    );
-
 
         $area_args = array(
       'type'      => 'textarea',
