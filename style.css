@@ -39,7 +39,8 @@ section.services .module {
 
 section.services  {
   position: relative;
-
+width: 100%;
+    display: table;
 }
 
 
@@ -668,6 +669,12 @@ border: 2px solid #022638;
 .page-area {
     padding-top: 24px;
         max-width: 700px;
+    margin: 0 auto;
+}
+
+.port-area {
+    padding-top: 24px;
+        max-width: 980px;
     margin: 0 auto;
 }
 

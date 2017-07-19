@@ -33,6 +33,17 @@ $(window).scroll(function() {
   var $buttons = $('#buttons');
   var tagged = {};
 
+      var srcs = [],
+        temp;
+    $("#gallery img").filter(function(){
+        temp = $(this).attr("src");
+        if($.inArray(temp, srcs) < 0){
+            srcs.push(temp);   
+            return false;
+        }
+        return true;
+    }).hide();
+
   $imgs.each(function() {
     var img = this;
     var tags = $(this).data('tags');
@@ -51,6 +62,21 @@ $(window).scroll(function() {
     text: 'Show All',
     class: 'active',
     click: function() {
+
+
+    var srcs = [],
+        temp;
+    $("#gallery img").filter(function(){
+        temp = $(this).attr("src");
+        if($.inArray(temp, srcs) < 0){
+            srcs.push(temp);   
+            return false;
+        }
+        return true;
+    }).hide();
+
+
+
       $(this)
         .addClass('active')
         .siblings()
@@ -69,9 +95,10 @@ $(window).scroll(function() {
           .siblings()
           .removeClass('active');
         $imgs
+
           .addClass('img-class').removeClass('img-active').addClass('animated bounceOut')
           .filter(tagged[tagName])
-          .removeClass('img-class').removeClass('animated bounceOut').addClass('img-active').addClass('animated bounceIn');
+          .removeClass('img-class').removeClass('animated bounceOut').addClass('img-active').addClass('animated bounceIn').show();
       }
     }).appendTo($buttons);
   });
@@ -81,7 +108,7 @@ $(window).scroll(function() {
 $( "button" ).click(function() {
   setTimeout(function(){
     $('.img-active').removeClass('bounceIn');
-},800);
+},600);
 });
 
 

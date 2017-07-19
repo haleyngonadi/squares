@@ -13,15 +13,15 @@
 
 get_header(); ?>
 
-<div id="primary" class="page-area">
-	<main id="main" class="site-main" role="main">
-		<?php while ( have_posts() ) : the_post() ?>
-		<h2 class="page-title"><span><?php the_title()?></span> </h2>		
-		<?php endwhile; ?>
+<div id="primary" class="port-area">
+  <main id="main" class="site-main" role="main">
+    <?php while ( have_posts() ) : the_post() ?>
+    <h2 class="page-title"><span><?php the_title()?></span> </h2>
 
-		            <?php 
-// the query
-$the_query = new WP_Query( array ('post_type' => 'portfolio', 'posts_per_page' => -1) ); ?>
+    <?php 
+$args = array('post_type' => 'service');
+$the_query = new WP_Query( $args ); 
+$theID = $post->ID;?>
 
 <?php if ( $the_query->have_posts() ) : ?>
 
@@ -31,45 +31,50 @@ $the_query = new WP_Query( array ('post_type' => 'portfolio', 'posts_per_page' =
    <div id="gallery" class="row">
   <!-- the loop -->
   <?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
-
-    <?php
-
-$theslug = '';
-foreach (get_the_category() as $category) {
-    $theslug .= $category->name .',';
-   
-} 
-$theslug = rtrim($theslug, ',');
-
-
-
-?>
-  <a class="image-link" href="<?php the_post_thumbnail_url('full')?>" style="outline: none">
-  <img class="col-sm-3 img-active" data-tags="<?php echo $theslug;?>" src="<?php the_post_thumbnail_url('portfolio-size')?>" alt="<?php echo $theslug;?>" /></a>
+    <?php 
+        $str = get_the_title(); 
+        $str = strtolower($str);
+        $str = str_replace(' ', '_', $str)."_images";
+        $images = get_post_meta($theID,  $str, true); 
+     if ($images) {
+          foreach ($images as $image) {
+            $thumbnail = wp_get_attachment_image_src($image, 'portfolio-size');
+            $full = wp_get_attachment_image_src($image, 'full');
 
 
+            echo '<a class="image-link" href="' . $full[0] . '" style="outline: none">';
+            echo '<img class="col-sm-3 img-active" src="' . $thumbnail[0] . '" alt="" data-tags="'.get_the_title().'"  />';
+            echo '</a>';
+          }
+        }
+
+    ?>
   <?php endwhile; ?>
+
+  </div></div>
   <!-- end of the loop -->
-</div></div>
+
   <!-- pagination here -->
 
   <?php wp_reset_postdata(); ?>
 
 <?php else : ?>
-  <p><?php _e( 'Sorry, no pictures were found..' ); ?></p>
+  <p><?php _e( 'Sorry, no posts matched your criteria.' ); ?></p>
 <?php endif; ?>
 
 
+       
+    <?php endwhile; ?>
 
-		<h2 class="follow"><span>Follow Us</span></h2>
-		<ul class="socials rounded">
+    <h2 class="follow"><span>Follow Us</span></h2>
+    <ul class="socials rounded">
             <li> <a href="https://twitter.com/vital_squares" target="_blank"><i class="fa fa-twitter-square" aria-hidden="true"></i></a></li>
             <li> <a href="https://facebook.com/vitalsquares" target="_blank"><i class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
             <li> <a href="https://instagam.com/vitalsquares" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
 
             </ul>
 
-	</main><!-- .site-main -->
+  </main><!-- .site-main -->
 
 
 </div><!-- .content-area -->

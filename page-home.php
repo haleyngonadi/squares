@@ -23,7 +23,7 @@ get_header('home'); ?>
 
  <?php 
 // the query
-$the_query = new WP_Query( array ('post_type' => 'portfolio', 'posts_per_page' => 4, 'orderby' => 'rand') ); ?>
+$the_query = new WP_Query( array ('posts_per_page' => 4, 'orderby' => 'rand') ); ?>
 
 <?php if ( $the_query->have_posts() ) : ?>
 
@@ -122,9 +122,14 @@ $the_query = new WP_Query( array ('post_type' => 'service', 'posts_per_page' => 
 
 
 
-            <?php 
-// the query
-$the_query = new WP_Query( array ('post_type' => 'portfolio', 'posts_per_page' => -1) ); ?>
+ 
+  <!-- the loop -->
+    <?php 
+$args = array('post_type' => 'service');
+$the_query = new WP_Query( $args ); 
+$page = get_page_by_title( 'Portfolio' );
+$theID = $page->ID;
+?>
 
 <?php if ( $the_query->have_posts() ) : ?>
 
@@ -134,34 +139,36 @@ $the_query = new WP_Query( array ('post_type' => 'portfolio', 'posts_per_page' =
    <div id="gallery" class="row">
   <!-- the loop -->
   <?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
-
-    <?php
-
-$theslug = '';
-foreach (get_the_category() as $category) {
-    $theslug .= $category->name .',';
-   
-} 
-$theslug = rtrim($theslug, ',');
-
-
-
-?>
-  <a class="image-link" href="<?php the_post_thumbnail_url('full')?>" style="outline: none">
-  <img class="col-sm-3 img-active" data-tags="<?php echo $theslug;?>" src="<?php the_post_thumbnail_url('portfolio-size')?>" alt="<?php echo $theslug;?>" /></a>
+    <?php 
+        $str = get_the_title(); 
+        $str = strtolower($str);
+        $str = str_replace(' ', '_', $str)."_images";
+        $images = get_post_meta($theID,  $str, true); 
+     if ($images) {
+          foreach ($images as $image) {
+            $thumbnail = wp_get_attachment_image_src($image, 'portfolio-size');
+            $full = wp_get_attachment_image_src($image, 'full');
 
 
+            echo '<a class="image-link" href="' . $full[0] . '" style="outline: none">';
+            echo '<img class="col-sm-3 img-active" src="' . $thumbnail[0] . '" alt="" data-tags="'.get_the_title().'"  />';
+            echo '</a>';
+          }
+        }
+
+    ?>
   <?php endwhile; ?>
+
+  </div></div>
   <!-- end of the loop -->
-</div></div>
+
   <!-- pagination here -->
 
   <?php wp_reset_postdata(); ?>
 
 <?php else : ?>
-  <p><?php _e( 'Sorry, no pictures were found..' ); ?></p>
+  <p><?php _e( 'Sorry, no posts matched your criteria.' ); ?></p>
 <?php endif; ?>
-
 
 
 

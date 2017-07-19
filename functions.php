@@ -262,6 +262,8 @@ if ( $post->post_title == 'Portfolio')
 function display_product_information()
 {
 
+  echo "<span class='vp-active-gallery'></span>";
+
     $args = array('post_type' => 'service');
   $the_query = get_posts( $args );
 
@@ -271,31 +273,32 @@ function display_product_information()
   <label><span><?php _e($named->post_title, 'vp-post-formats-ui'); ?></span></label>
   <div class="vp-pfui-elm-container">
 
-    <?php do_action( 'vp_pfui_before_gallery_meta' ); 
-      $striped = str_replace($named->post_title, ' ', '_').'_images';
-
-    ?>
 
     <div class="vp-pfui-gallery-picker">
       <?php
         // query the gallery images meta
         global $post;
-        $images = get_post_meta($post->ID,  $striped, true);
+        
+        $str = $named->post_title; 
+        $str = strtolower($str);
+        $str = str_replace(' ', '_', $str)."_images";
+        $images = get_post_meta($post->ID,  $str, true);
 
-        echo '<div class="gallery clearfix">';
+
+        echo '<div class="gallery clearfix '.$str.'">';
         if ($images) {
           foreach ($images as $image) {
             $thumbnail = wp_get_attachment_image_src($image, 'thumbnail');
-            echo '<span data-id="' . $image . '" title="' . 'title' . '"><img src="' . $thumbnail[0] . '" alt="" /><span class="close">x</span></span>';
+            echo '<span data-id="' . $image . '" title="' . 'title' . '" data-gallery="' . $str. '"><img src="' . $thumbnail[0] . '" alt="" /><span class="close">x</span></span>';
           }
         }
         echo '</div>';
       ?>
-      <input type="hidden" name="<?php echo $striped;?>" value="<?php echo (empty($images) ? "" : implode(',', $images)); ?>" />
-      <p class="none"><a href="#" class="button vp-pfui-gallery-button" data-gallery="<?php echo $named->post_title;?>"><?php _e('Pick Images', 'vp-post-formats-ui'); ?></a></p>
+      <input type="hidden" name="<?php echo $str;?>" value="<?php echo (empty($images) ? "" : implode(',', $images)); ?>" />
+      <p class="none"><a href="#" class="button vp-pfui-gallery-button" data-name="<?php echo $named->post_title;?>">
+      <?php _e('Pick Images', 'vp-post-formats-ui'); ?></a></p>
     </div>
 
-    <?php do_action( 'vp_pfui_after_gallery_meta' ); ?>
 
   </div>
 </div>
@@ -310,15 +313,30 @@ function display_product_information()
 add_action('save_post', 'vp_pfui_format_gallery_save_post');
 
 function vp_pfui_format_gallery_save_post($post_id) {
-  if (!defined('XMLRPC_REQUEST') && isset($_POST['_format_gallery_images'])) {
+
+
+
+    $args = array('post_type' => 'service');
+  $the_query = get_posts( $args );
+
+  foreach ($the_query as $named) {
+
+        $str = $named->post_title; 
+        $str = strtolower($str);
+        $str = str_replace(' ', '_', $str)."_images";
+
+  if (!defined('XMLRPC_REQUEST') && isset($_POST[$str])) {
     global $post;
-    if( $_POST['_format_gallery_images'] !== '' ) {
-      $images = explode(',', $_POST['_format_gallery_images']);
+    if( $_POST[$str] !== '' ) {
+      $images = explode(',', $_POST[$str]);
     } else {
       $images = array();
     }
-    update_post_meta($post_id, '_format_gallery_images', $images);
+    update_post_meta($post_id, $str, $images);
   }
+
+}
+
 }
 
 
@@ -332,3 +350,17 @@ function pw_load_scripts($hook) {
     wp_enqueue_style( 'custom_wp_admin_css', get_template_directory_uri() . '/css/admin.css', false, '1.0.0' );
 }
 add_action('admin_enqueue_scripts', 'pw_load_scripts');
+
+
+add_action( 'admin_init', 'hide_editor' );
+function hide_editor() {
+  // Get the Post ID.
+  $post_id = $_GET['post'] ? $_GET['post'] : $_POST['post_ID'] ;
+  if( !isset( $post_id ) ) return;
+  // Hide the editor on the page titled 'Homepage'
+  $homepgname = get_the_title($post_id);
+  if($homepgname == 'Portfolio'){ 
+    remove_post_type_support('page', 'editor');
+  }
+  
+}
