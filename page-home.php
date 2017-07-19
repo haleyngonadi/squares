@@ -202,8 +202,9 @@ $theID = $page->ID;
 
 
                         <ul class="socials">
-            <li> <a href="" target="_blank"><i class="fa fa-twitter-square" aria-hidden="true"></i></a></li>
-            <li> <a href="" target="_blank"><i class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
+             <li> <a href="https://twitter.com/vital_squares" target="_blank"><i class="fa fa-twitter-square" aria-hidden="true"></i></a></li>
+            <li> <a href="https://facebook.com/vitalsquares" target="_blank"><i class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
+            <li> <a href="https://instagam.com/vitalsquares" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
 
             </ul>
 
