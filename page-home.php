@@ -74,8 +74,8 @@ $theslug = rtrim($theslug, ',');
         </section>
 
 
-                <section id="services" class="services">
-            <h2 class="title"><span>Services</span></h2>
+                <section id="#products" class="services">
+            <h2 class="title"><span>Products</span></h2>
 
          
 
