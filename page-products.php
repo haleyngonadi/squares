@@ -13,7 +13,7 @@
 
 get_header(); ?>
 
-<div id="primary" class="page-area">
+<div id="primary" class="port-area">
 	<main id="main" class="site-main" role="main">
 		<?php while ( have_posts() ) : the_post() ?>
 		<h2 class="page-title"><span><?php the_title()?></span> </h2>		
@@ -28,7 +28,7 @@ $the_query = new WP_Query( array ('post_type' => 'service', 'posts_per_page' => 
 	<!-- pagination here -->
 
 	<!-- the loop -->
-	<section class="services">
+	<section class="services" style="padding-top: 0">
 	<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
 
 		               <div class="col-md-4 wow bounceIn">
