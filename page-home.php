@@ -88,6 +88,7 @@ $the_query = new WP_Query( array ('post_type' => 'service', 'posts_per_page' => 
 	<!-- pagination here -->
 
 	<!-- the loop -->
+  <div class="row">
 	<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
 
 		               <div class="col-md-4 wow bounceIn">
@@ -99,7 +100,7 @@ $the_query = new WP_Query( array ('post_type' => 'service', 'posts_per_page' => 
    </div>
 
 
-	<?php endwhile; ?>
+	<?php endwhile; ?></div>
 	<!-- end of the loop -->
 
 	<!-- pagination here -->
