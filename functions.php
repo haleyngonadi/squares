@@ -13,6 +13,8 @@ add_theme_support( 'post-thumbnails' );
 add_theme_support( 'title-tag' );
 add_image_size( 'portfolio-size', 320, 300, array( 'top', 'center' ) );
 add_image_size( 'featured-size', 555, 400, array( 'top', 'center' ) );
+add_image_size( 'share-size', 555, 400, true );
+
 
 /** Menus **/
 

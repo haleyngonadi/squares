@@ -46,7 +46,7 @@ $theslug = rtrim($theslug, ',');
 
 ?>
 
-    <img class="owl-lazy" data-src="<?php the_post_thumbnail_url('featured-size')?>" alt="<?php echo $theslug;?>">
+    <img class="owl-lazy" data-src="<?php the_post_thumbnail_url('share-size')?>" alt="<?php echo $theslug;?>">
     <?php endwhile; ?>
   <!-- end of the loop -->
 
